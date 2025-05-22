@@ -1,5 +1,6 @@
 import bpy
-from tools import tool_visibility, tool_weight_transfer
+import tools.tool_visibility as tool_visibility
+import tools.tool_weight_transfer as tool_weight_transfer
 
 bl_info = {
     "name" : "LEIDO Tools",
