@@ -12,7 +12,7 @@ class TOOL_VISIBILITY_HIDE(bpy.types.Operator):
             obj.keyframe_insert(data_path="hide_render")
         return {'FINISHED'}
     
-class TOOL_VISIBILITY_UNHIDE(bpy.types.Operator):
+class TOOL_VISIBILITY_SHOW(bpy.types.Operator):
     """Show and keyframe the render visibility of selected objects"""
     bl_idname = "object.show_render_visbility"
     bl_label = "Show and keyframe selected objects render visibility"
