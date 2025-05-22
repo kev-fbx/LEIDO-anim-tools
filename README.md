@@ -1,4 +1,4 @@
-# LEIDO-anim-tools
+# LEIDO Tools
 Subtle Blender shortcuts that speed up generic 3D graphics pipelines. Combines previous add-ons into a single comprehensive toolset.
 
 # Demos
