@@ -1,6 +1,6 @@
 import bpy
-import tools.tool_visibility as tool_visibility
-import tools.tool_weight_transfer as tool_weight_transfer
+from .tools import tool_visibility
+from .tools import tool_weight_transfer
 
 bl_info = {
     "name" : "LEIDO Tools",
@@ -8,34 +8,51 @@ bl_info = {
     "description": "Tools that help with the LEIDO workflow",
     "blender": (3, 0, 0),
     "version": (0, 1, 0),
-    "location": "3D View > Properties > Tool",
+    "location": "3D View > Properties > LEIDO",
     "warning": "",
     "category": "Animation",
 }
 
-class TOOLS_PT_LEIDO_Panel(bpy.types.Panel):
-    """Panel for Visibility and Weight Tools"""
-    bl_label = "Visibility & Weight Tools"
-    bl_idname = "TOOLS_PT_visibility_weight_panel"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = 'Tool'
+class VISIBILITY_PT_keyframe_visibility_ui(bpy.types.Panel):
+    """UI Panel for visibility keyframing"""
+    bl_label = "Visibility Keyframer"
+    bl_idname = "VISIBILITY_PT_Visibility_Keyframer"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "LEIDO"
 
     def draw(self, context):
         layout = self.layout
-        layout.label(text="Render Visibility:")
+        scene = context.scene
+        row = layout.row()
+
         row = layout.row(align=True)
-        row.operator("object.keyframe_visibility_show", text="Show in Render")
-        row.operator("object.keyframe_visibility_hide", text="Hide in Render")
-        layout.separator()
-        layout.label(text="Vertex Weight Transfer:")
-        layout.operator("object.transfer_weights", text="Transfer Weights")
+        layout.operator("view3d.keyframe_visibility_show", text="Show in render")
+        layout.operator("view3d.keyframe_visibility_hide", text="Hide in render")
+
+class WEIGHT_TRANSFER_PT_ui(bpy.types.Panel):
+    """UI panel for weight transfer"""
+    bl_label = "Weight Transfer"
+    bl_idname = "VIEW3D_PT_Weight_Transfer"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "LEIDO"
+
+    def draw(self, context):
+        """Define the layout of the panel"""
+        layout = self.layout
+        scene = context.scene
+        row = layout.row()
+        
+        row = layout.row(align=True)
+        layout.operator("view3d.transfer_weights")
 
 classes = (
-    tool_visibility.TOOL_VISIBILITY_HIDE,
-    tool_visibility.TOOL_VISIBILITY_SHOW,
-    tool_weight_transfer.WEIGHT_OT_transfer_weights,
-    TOOLS_PT_LEIDO_Panel,
+    tool_visibility.VISIBILITY_OT_keyframe_visibility_hide,
+    tool_visibility.VISIBILITY_OT_keyframe_visibility_show,
+    tool_weight_transfer.transfer_weights,
+    VISIBILITY_PT_keyframe_visibility_ui,
+    WEIGHT_TRANSFER_PT_ui,
 )
 
 def register():
